@@ -1,0 +1,44 @@
+/* Apple-style: frosted glass + subtle depth */
+:root{
+  --glass-bg: rgba(255,255,255,.72);
+  --glass-border: rgba(0,0,0,.06);
+  --card-shadow: 0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+}
+
+/* Dark mode */
+[data-theme=dark],.dark-mode{
+  --glass-bg: rgba(44,44,46,.72);
+  --glass-border: rgba(255,255,255,.08);
+  --card-shadow: 0 1px 3px rgba(0,0,0,.2),0 4px 16px rgba(0,0,0,.2);
+  --text-primary: #f5f5f7;
+  --text-secondary: #98989d;
+}
+
+/* Frosted cards */
+.card,.recent-post-item,#aside-content .card-widget,.layout>.recent-posts>.recent-post-item{
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: 18px !important;
+  transition: all .35s cubic-bezier(.4,0,.2,1) !important;
+}
+.card:hover,.recent-post-item:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06),0 8px 32px rgba(94,106,210,.08) !important;
+}
+
+/* Smooth page */
+body{
+  background: var(--meta_theme_color_light);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(94,106,210,.25);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(94,106,210,.4)}

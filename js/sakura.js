@@ -1,7 +1,7 @@
 /* Lightweight sakura petals - ~1.5KB */
 (function(){
 var petals=[],max=12,winW=window.innerWidth;
-var colors=['rgba(255,183,197,.6)','rgba(255,179,186,.5)','rgba(255,200,210,.7)','rgba(255,190,200,.4)'];
+var colors=['rgba(196,181,253,.6)','rgba(167,139,250,.5)','rgba(216,180,254,.7)','rgba(192,132,252,.4)'];
 function Petal(){
   this.el=document.createElement('div');
   this.el.style.cssText='position:fixed;top:-30px;z-index:999;pointer-events:none;font-size:'+(12+Math.random()*10)+'px;opacity:'+(.4+Math.random()*.4)+';animation:sakuraFall '+(6+Math.random()*6)+'s linear infinite;animation-delay:'+(Math.random()*5)+'s;left:'+(Math.random()*winW)+'px;color:'+colors[Math.floor(Math.random()*4)];

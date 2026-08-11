@@ -1,11 +1,12 @@
 /* Apple-style: frosted glass + subtle depth */
 :root{
-  --glass-bg: rgba(255,255,255,.72);
-  --glass-border: rgba(0,0,0,.06);
+  --glass-bg: rgba(242,242,247,.8);
+  --glass-border: rgba(94,106,210,.08);
   --card-shadow: 0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
   --text-primary: #1d1d1f;
-  --text-secondary: #6e6e73;
+  --text-secondary: #48484a;
 }
+body{color:var(--text-primary)}
 
 /* Dark mode */
 [data-theme=dark],.dark-mode{

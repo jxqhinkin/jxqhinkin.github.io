@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>New-Life | HINKIN's BLOG</title><meta name="author" content="HINKIN"><meta name="copyright" content="HINKIN"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#FFF5F0"><meta name="description" content="Hinkin	When first come to SUIT, I’m relax with just a little anxiety,thinking it easy to get well here.Soon,I joined the Club named “IC Motivation”.	I soon impressed by how good the seniors are, they’">
+<meta property="og:type" content="article">
+<meta property="og:title" content="New-Life">
+<meta property="og:url" content="https://jxqhinkin.github.io/2026/04/17/New-Life/index.html">
+<meta property="og:site_name" content="HINKIN&#39;s BLOG">
+<meta property="og:description" content="Hinkin	When first come to SUIT, I’m relax with just a little anxiety,thinking it easy to get well here.Soon,I joined the Club named “IC Motivation”.	I soon impressed by how good the seniors are, they’">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jxqhinkin.github.io/img/avatar.svg">
+<meta property="article:published_time" content="2026-04-17T10:24:27.000Z">
+<meta property="article:modified_time" content="2026-04-17T12:02:20.623Z">
+<meta property="article:author" content="HINKIN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxqhinkin.github.io/img/avatar.svg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "New-Life",
+  "url": "https://jxqhinkin.github.io/2026/04/17/New-Life/",
+  "image": "https://jxqhinkin.github.io/img/avatar.svg",
+  "datePublished": "2026-04-17T10:24:27.000Z",
+  "dateModified": "2026-04-17T12:02:20.623Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "HINKIN",
+      "url": "https://jxqhinkin.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://jxqhinkin.github.io/2026/04/17/New-Life/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#1a1a2e')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#FFF5F0')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'New-Life',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/claude-pixel.css"><script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/lab/"><i class="fa-fw fas fa-flask"></i><span> Lab</span></a></div><div class="menus_item"><a class="site-page" href="/think/"><i class="fa-fw fas fa-lightbulb"></i><span> Think</span></a></div><div class="menus_item"><a class="site-page" href="/videos/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">HINKIN's BLOG</span></a><a class="nav-page-title" href="/"><span class="site-name">New-Life</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/lab/"><i class="fa-fw fas fa-flask"></i><span> Lab</span></a></div><div class="menus_item"><a class="site-page" href="/think/"><i class="fa-fw fas fa-lightbulb"></i><span> Think</span></a></div><div class="menus_item"><a class="site-page" href="/videos/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">New-Life</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-04-17T10:24:27.000Z" title="Created 2026-04-17 18:24:27">2026-04-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-04-17T12:02:20.623Z" title="Updated 2026-04-17 20:02:20">2026-04-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>Hinkin<br>	When first come to SUIT, I’m relax with just a little anxiety,thinking it easy to get well here.Soon,I joined the Club named “IC Motivation”.<br>	I soon impressed by how good the seniors are, they’re so good at coding,using ai,finding information,starting a project ……<br>	And next,time schedule,which is so difficult to do,with something to do.The most important problems are the eagerness of the phone,which originates from the expectation of daily experience.(when facing multiple problems without “obvious” rest&#x2F;gaming).<br>	To let me raise the efficiency, I decided to use agent, some automatic program, creativity to make it.For example, work 1h rest 10~15 min can literally helps.Given that i like immersive work but actually affectted my efficiency,I will add some exercises in routine.<br>	But also problems like how to make the classes more effective.There are two types of class in my mind.Useful:skills,major class and Unuseful:General knowledge class.But i got two choice:<br>	1.use the time to do what i’m proceeding now.         2.Try to think innovatively to produce some nice thoughts.<br>	<br><em>how to balance them !?</em><br>	<code>Deepseek&#39;s sayings:</code>The key is <strong>Boundary Management</strong> and <strong>Surfacing Intent</strong>.<br>	<br><strong>Scenario A: The Lecture-Only Class (Pure Background  Noise)</strong></p>
+<ul>
+<li><strong>Verdict:</strong> Lean <strong>70% toward Choice 1 (Current Tasks)</strong>.</li>
+<li>Use this hour for tasks that require low cognitive load: formatting citations, cleaning up your email inbox, organizing files, or reading <em>required</em> but easy material for your major.</li>
+</ul>
+<p><strong>Scenario B: The Discussion&#x2F;Activity Class (Forced Pauses)</strong></p>
+<ul>
+<li><strong>Verdict:</strong> Lean <strong>70% toward Choice 2 (Innovative Thinking)</strong></li>
+<li>Keep a <strong>“Stupid Ideas”</strong> notebook open,let key word flow in your mind.</li>
+</ul>
+<p>Other Problems:</p>
+<pre><code>A problem :I will become shy and anxious facing people when we are more close.That&#39;s weired but i know i&#39;ve hurt by my parents, and some friends.So i acquired this &quot;problem&quot;.
+</code></pre>
+<p>我们需要用<strong>极小的、可控的剂量</strong>，向你的潜意识证明：<em>“现在这个新朋友，和以前的旧伤害，不是同一种人。”</em><br>当你在亲近的人面前突然害羞&#x2F;焦虑时，<strong>不要问自己“我怎么又这样了？”</strong>。<br>而是问自己：<em>“我现在多大？我在哪里？”</em></p>
+<ul>
+<li><p><strong>操作：</strong> 在心里默念：<em>“我现在23岁（或你的实际年龄），我在学校&#x2F;公司，对面是[朋友的名字]。他不是我爸&#x2F;妈，也不是初中那个伤害我的人。”</em></p>
+</li>
+<li><p><strong>原理：</strong> 这是<strong>现实检验</strong>。创伤带来的焦虑是因为你的身体回到了<strong>过去的那个小孩状态</strong>。你要用当下的、成年的、有力量的自己去把那个小孩拉回来。</p>
+</li>
+</ul>
+<p>你害怕亲近是因为害怕暴露真实的自己会被嫌弃。那我们就<strong>主动、微量地暴露一点点不完美</strong>，然后观察对方的反应。<br>你不需要消除害羞。下次你感觉到自己因为亲近而开始尴尬、脸红、说不出话时，直接说出来。</p>
+<p>A problem :<br>	My life become disorder after a beginning semester. Also, it’s more ineffective to correct my mistakes.(Maybe it is hard but it keeps occur,that’s a problem).<br>	你现在的状态不是“变差了”，而是<strong>进入了游戏的中期Boss战</strong>。第一学期的武器砍不动了，你需要的是升级装备，不是责备自己力气变小了。<br>	你现在的痛苦，正是因为<strong>第一阶段那把靠爆发力驱动的武器，在第二阶段的耐力战中过载烧毁了</strong>。<br>	如果你发现“纠正错误变得无效”，说明你在用<strong>第一阶段的逻辑</strong>打<strong>第二阶段的Boss</strong>。你需要的是<strong>重铸</strong>，而不是继续磨刀。
+	</p>
+<ul>
+<li><p>※<strong>问题诊断：</strong> 中期乏力的原因之一是<strong>注意力碎片化</strong>。你试图模仿别人的广度，结果连自己原有的深度都丢了。</p>
+</li>
+<li><p><strong>中期升级操作：</strong> 把“参加一个活动”改为 <strong>“解决一个人的具体问题”</strong>。</p>
+<ul>
+<li><p><em>错误想法：</em> “我要去参加那个行业沙龙，多认识人。”</p>
+</li>
+<li><p><em>中期玩法：</em> “我知道A学长在做XX方向的课题，我花30分钟读一篇相关论文，把其中一句有用的摘要发给他，说‘这个是不是对你有用？’”</p>
+</li>
+<li><p><em>结果：</em> 这种<strong>深度微交互</strong>带来的资源积累效率，是参加十场泛泛活动的十倍。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>信号识别：</strong> 当你觉得“怎么做都没用”、“别人都在进步我在退步”时，说明你正处在<strong>能力高原期</strong>。这不是失败，这是你的大脑和身体在<strong>消化第一学期囫囵吞下的所有东西</strong>。</p>
+</li>
+<li><p><strong>唯一正确的操作：</strong> <strong>不做任何大改动，保持最低功耗运转。</strong></p>
+<ul>
+<li>具体做法：每天只保证<strong>一件确定能完成的事</strong>。比如“今天把书翻开”就算赢。熬过这段消化期，下一个上升期会自然到来。</li>
+</ul>
+</li>
+</ul>
+<p><strong>放弃完美主义）：</strong> 允许自己今天的任务<strong>只做60分</strong>。60分能维持系统运转，追求100分会导致系统崩溃。</p>
+<ol>
+<li>聚焦一个支点, 本学期剩下的时间，<strong>只允许自己在一个方面追求“升级”</strong>（比如只盯着一门核心专业课，或者只盯着一项技能）。把其他事的期望值降到“及格就行”。</li>
+</ol>
+<p>为什么你的体感是 <strong>“更加、无比、不可承受”</strong> 的困难？<br>但对你来说，跨越平台期需要同时解决两个问题：</p>
+<ol>
+<li><p><strong>事情的问题</strong>（这道题怎么解？）</p>
+</li>
+<li><p><strong>存在焦虑的问题</strong>（我是不是不行？我是不是又要被抛弃&#x2F;否定了？）</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://jxqhinkin.github.io">HINKIN</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://jxqhinkin.github.io/2026/04/17/New-Life/">https://jxqhinkin.github.io/2026/04/17/New-Life/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.svg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/06/07/Try-This-Summer/" title="Try This Summer"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Try This Summer</div></div><div class="info-2"><div class="info-item-1">Let’s see what can this summer bring us    </div></div></div></a><a class="pagination-related" href="/2026/03/06/Sleep-matters/" title="Sleep matters"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Sleep matters</div></div><div class="info-2"><div class="info-item-1">** u probably heard*** how many disadvantages if we stay up late    Your brain is like a High-level computer.If you just keep it on,it generate “rubbish” which constantly increasing and occupy the cerebral cortex.    The control of your body get some trouble,the organ won’t go well.Sleepy and low-energy is just the start of this trouble.                                                    var ap = new APlayer({             element: document.getElementById("aplayer-mtZxKZMb"),             narro...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">HINKIN</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/jxqhinkin" target="_blank" title="GitHub"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://space.bilibili.com/" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #fb7299;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/11/ComfyUI-SD1.5-6GB-local-deploy/" title="6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录">6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录</a><time datetime="2026-08-10T16:00:00.000Z" title="Created 2026-08-11 00:00:00">2026-08-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/06/07/Try-This-Summer/" title="Try This Summer">Try This Summer</a><time datetime="2026-06-07T05:30:07.000Z" title="Created 2026-06-07 13:30:07">2026-06-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/17/New-Life/" title="New-Life">New-Life</a><time datetime="2026-04-17T10:24:27.000Z" title="Created 2026-04-17 18:24:27">2026-04-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/06/Sleep-matters/" title="Sleep matters">Sleep matters</a><time datetime="2026-03-06T12:24:54.000Z" title="Created 2026-03-06 20:24:54">2026-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/06/Experience-matters/" title="Experience matters">Experience matters</a><time datetime="2026-03-06T11:10:35.000Z" title="Created 2026-03-06 19:10:35">2026-03-06</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By HINKIN</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><div class="js-pjax"></div><script src="/js/sakura.js"></script><script src="/js/sparkle.js"></script><script id="canvas_nest" defer="defer" color="255,107,107" opacity="0.5" zIndex="-1" count="66" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

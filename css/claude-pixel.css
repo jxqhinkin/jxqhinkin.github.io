@@ -1,0 +1,44 @@
+/* Claude Pixel Style for posts tagged "AI" or "Claude" */
+/* Add to posts with: <div class="claude-box"> ... </div> */
+
+.claude-box {
+  background: #faf9f6;
+  border: 3px solid #d97706;
+  border-radius: 0;
+  padding: 20px;
+  margin: 16px 0;
+  font-family: 'Courier New', monospace;
+  color: #333;
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.claude-box::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  border: 3px solid #d97706;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.claude-box .claude-label {
+  position: absolute;
+  top: -12px;
+  left: 12px;
+  background: #d97706;
+  color: #fff;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  image-rendering: pixelated;
+}
+
+.pixel-cursor::after {
+  content: '▌';
+  animation: blink 1s step-end infinite;
+  color: #d97706;
+}
+
+@keyframes blink { 50% { opacity: 0; } }

@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录 | HINKIN's BLOG</title><meta name="author" content="HINKIN"><meta name="copyright" content="HINKIN"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#FFF5F0"><meta name="description" content="硬件与方案RTX 4050 Laptop 6GB，试了一圈结论：SD 1.5 是 6GB 显存的最优解。SDXL&#x2F;Flux&#x2F;SD3 要么跑不动，要么 OOM 到崩溃。 最终选择了 ComfyUI Windows Portable + SD 1.5 底模 + AnimateDiff 运动模块，实现了文生图、图生图、文生视频、图生视频、视频插值五合一。 模型选择   模型 大小 风">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录">
+<meta property="og:url" content="https://jxqhinkin.github.io/2026/08/11/ComfyUI-SD1.5-6GB-local-deploy/index.html">
+<meta property="og:site_name" content="HINKIN&#39;s BLOG">
+<meta property="og:description" content="硬件与方案RTX 4050 Laptop 6GB，试了一圈结论：SD 1.5 是 6GB 显存的最优解。SDXL&#x2F;Flux&#x2F;SD3 要么跑不动，要么 OOM 到崩溃。 最终选择了 ComfyUI Windows Portable + SD 1.5 底模 + AnimateDiff 运动模块，实现了文生图、图生图、文生视频、图生视频、视频插值五合一。 模型选择   模型 大小 风">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jxqhinkin.github.io/img/avatar.svg">
+<meta property="article:published_time" content="2026-08-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-11T08:01:58.128Z">
+<meta property="article:author" content="HINKIN">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="AnimateDiff">
+<meta property="article:tag" content="ComfyUI">
+<meta property="article:tag" content="Stable Diffusion">
+<meta property="article:tag" content="部署">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxqhinkin.github.io/img/avatar.svg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录",
+  "url": "https://jxqhinkin.github.io/2026/08/11/ComfyUI-SD1.5-6GB-local-deploy/",
+  "image": "https://jxqhinkin.github.io/img/avatar.svg",
+  "datePublished": "2026-08-10T16:00:00.000Z",
+  "dateModified": "2026-08-11T08:01:58.128Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "HINKIN",
+      "url": "https://jxqhinkin.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://jxqhinkin.github.io/2026/08/11/ComfyUI-SD1.5-6GB-local-deploy/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#1a1a2e')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#FFF5F0')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/claude-pixel.css"><script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/lab/"><i class="fa-fw fas fa-flask"></i><span> Lab</span></a></div><div class="menus_item"><a class="site-page" href="/think/"><i class="fa-fw fas fa-lightbulb"></i><span> Think</span></a></div><div class="menus_item"><a class="site-page" href="/videos/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">HINKIN's BLOG</span></a><a class="nav-page-title" href="/"><span class="site-name">6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/lab/"><i class="fa-fw fas fa-flask"></i><span> Lab</span></a></div><div class="menus_item"><a class="site-page" href="/think/"><i class="fa-fw fas fa-lightbulb"></i><span> Think</span></a></div><div class="menus_item"><a class="site-page" href="/videos/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-08-10T16:00:00.000Z" title="Created 2026-08-11 00:00:00">2026-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-08-11T08:01:58.128Z" title="Updated 2026-08-11 16:01:58">2026-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI/">AI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="硬件与方案"><a href="#硬件与方案" class="headerlink" title="硬件与方案"></a>硬件与方案</h2><p>RTX 4050 Laptop 6GB，试了一圈结论：<strong>SD 1.5 是 6GB 显存的最优解</strong>。SDXL&#x2F;Flux&#x2F;SD3 要么跑不动，要么 OOM 到崩溃。</p>
+<p>最终选择了 ComfyUI Windows Portable + SD 1.5 底模 + AnimateDiff 运动模块，实现了文生图、图生图、文生视频、图生视频、视频插值五合一。</p>
+<h2 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h2><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>大小</th>
+<th>风格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DreamShaper 8</td>
+<td>2GB</td>
+<td>艺术写实全能</td>
+</tr>
+<tr>
+<td>Realistic Vision V5.1</td>
+<td>2GB</td>
+<td>照片级写实</td>
+</tr>
+<tr>
+<td>SD 1.5 原版</td>
+<td>4GB</td>
+<td>备用</td>
+</tr>
+</tbody></table>
+<p>下载优先用国内源：ModelScope 下 SD 1.5 原版（4 分钟），hf-mirror.com 下社区模型（DreamShaper&#x2F;Realistic Vision）。</p>
+<h2 id="坑与修复"><a href="#坑与修复" class="headerlink" title="坑与修复"></a>坑与修复</h2><ol>
+<li><strong>ComfyUI 0.31.0 Windows 后台 OSError</strong> — <code>app/logger.py</code> 的 <code>write()</code> 和 <code>flush()</code> 在非控制台环境崩溃，加 <code>try/except OSError</code> 修复</li>
+<li><strong>AnimateDiff 与 DynamicVRAM 冲突</strong> — 启动必须加 <code>--cache-classic</code>，同时修了 <code>model_injection.py</code> 和 <code>sampling.py</code> 的 ModelPatcher API</li>
+<li><strong>Gitee 镜像版本过旧</strong> — AnimateDiff Evolved 直接从 GitHub 拉新版</li>
+<li><strong>SaveVideo codec 参数</strong> — 动态 combo 类型需要传 <code>h264</code> 值</li>
+</ol>
+<h2 id="交互式工具-gen-py"><a href="#交互式工具-gen-py" class="headerlink" title="交互式工具 gen.py"></a>交互式工具 gen.py</h2><p>写了个交互式菜单脚本，运行 <code>python gen.py</code> 选模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1] 文生图    [2] 图生图    [3] 文生视频</span><br><span class="line">[4] 图生视频  [5] 视频插值  [6] 网页 UI</span><br></pre></td></tr></table></figure>
+
+<p>填提示词、选模型、调参数，自动调用 ComfyUI API 生成。另有 <code>ui.py</code> 提供浏览器操作面板。</p>
+<h2 id="动画生成"><a href="#动画生成" class="headerlink" title="动画生成"></a>动画生成</h2><p>基于 AnimateDiff，每次生成 8 帧（6GB 限制），长视频自动分多段 + ffmpeg 拼接。支持：</p>
+<ul>
+<li>运动插值（8fps → 24&#x2F;30&#x2F;60fps 丝滑输出）</li>
+<li>段间衔接模式（同 seed &#x2F; 重叠淡入淡出）</li>
+<li>图生视频（给张照片，AI 让它动起来）</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>6GB 显存虽然紧张，但 SD 1.5 + 好底模 + AnimateDiff 这个组合足够玩出花。关键是选对模型（2GB 的 DreamShaper&#x2F;Realistic Vision 比 4GB 原版好用）、优先国内下载源、启动参数用 <code>--cache-classic</code>。</p>
+<p>完整代码和文档后续整理放出。</p>
+<div class="claude-box">
+<span class="claude-label">Claude</span>
+这篇部署记录全程由 Claude Code 协助完成——从环境搭建、bug 修复、到工具脚本编写。我们踩了 6 个坑，修了 3 个兼容性 bug，最终把 6GB 显卡的性能榨到了极致。<br><br>
+<span class="pixel-cursor">我 + AI  2.5 个我</span>
+</div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://jxqhinkin.github.io">HINKIN</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://jxqhinkin.github.io/2026/08/11/ComfyUI-SD1.5-6GB-local-deploy/">https://jxqhinkin.github.io/2026/08/11/ComfyUI-SD1.5-6GB-local-deploy/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ComfyUI/">ComfyUI</a><a class="post-meta__tags" href="/tags/Stable-Diffusion/">Stable Diffusion</a><a class="post-meta__tags" href="/tags/AI/">AI</a><a class="post-meta__tags" href="/tags/%E9%83%A8%E7%BD%B2/">部署</a><a class="post-meta__tags" href="/tags/AnimateDiff/">AnimateDiff</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.svg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/06/07/Try-This-Summer/" title="Try This Summer"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Try This Summer</div></div><div class="info-2"><div class="info-item-1">Let’s see what can this summer bring us    </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.svg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">HINKIN</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/jxqhinkin" target="_blank" title="GitHub"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://space.bilibili.com/" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #fb7299;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E4%B8%8E%E6%96%B9%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">硬件与方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="toc-number">2.</span> <span class="toc-text">模型选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E4%B8%8E%E4%BF%AE%E5%A4%8D"><span class="toc-number">3.</span> <span class="toc-text">坑与修复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%B7%A5%E5%85%B7-gen-py"><span class="toc-number">4.</span> <span class="toc-text">交互式工具 gen.py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E7%94%9F%E6%88%90"><span class="toc-number">5.</span> <span class="toc-text">动画生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/11/ComfyUI-SD1.5-6GB-local-deploy/" title="6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录">6GB 显存本地部署 ComfyUI + SD 1.5 + 动画生成全记录</a><time datetime="2026-08-10T16:00:00.000Z" title="Created 2026-08-11 00:00:00">2026-08-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/06/07/Try-This-Summer/" title="Try This Summer">Try This Summer</a><time datetime="2026-06-07T05:30:07.000Z" title="Created 2026-06-07 13:30:07">2026-06-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/17/New-Life/" title="New-Life">New-Life</a><time datetime="2026-04-17T10:24:27.000Z" title="Created 2026-04-17 18:24:27">2026-04-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/06/Sleep-matters/" title="Sleep matters">Sleep matters</a><time datetime="2026-03-06T12:24:54.000Z" title="Created 2026-03-06 20:24:54">2026-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/06/Experience-matters/" title="Experience matters">Experience matters</a><time datetime="2026-03-06T11:10:35.000Z" title="Created 2026-03-06 19:10:35">2026-03-06</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By HINKIN</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><div class="js-pjax"></div><script src="/js/sakura.js"></script><script src="/js/sparkle.js"></script><script id="canvas_nest" defer="defer" color="255,107,107" opacity="0.5" zIndex="-1" count="66" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
